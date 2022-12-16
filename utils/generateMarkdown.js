@@ -26,8 +26,8 @@ function renderLicenseBadge(license) {
       return '[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)]';
     case 'The Unlicense':
       return '[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)]';
-
-    return '';  
+    default:
+      return '';  
   }
  
 }
@@ -60,8 +60,8 @@ function renderLicenseLink(license) {
       return '(https://opensource.org/licenses/MPL-2.0)';
     case 'The Unlicense':
       return '(http://unlicense.org/)';
-
-    return '';  
+    default:
+      return '';  
   }
 }
 
@@ -73,20 +73,18 @@ function renderLicenseSection(license) {
 
   return `## License 
 
-  This project is covered under the following license: ${license}
-  `;
+This project is covered under the following license: ${license}
+
+`;
 }
 
-
-
-// TODO: Create a function to generate markdown for README
+// This function generates a markdown for README
 function generateMarkdown(data) {
-
   const renderedLicenseBadge = renderLicenseBadge(data.license) + renderLicenseLink(data.license);
 
   const licenseSection = renderLicenseSection(data.license);
 
-  const licenseToC = licenseSection == '' ? '' : '- [License](#license)';
+  const licenseToC = (licenseSection == '') ? '' : '- [License](#license)\n';
 
   return `# ${data.title} ${renderedLicenseBadge}
 
@@ -98,8 +96,7 @@ ${data.description}
 
 - [Installation](#installation)
 - [Usage](#usage)
-${licenseToC}
-- [Contributing](#contributing)
+${licenseToC}- [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
 
@@ -111,9 +108,7 @@ ${data.installation}
 
 ${data.usage}
 
-${licenseSection}
-
-## Contributing
+${licenseSection}## Contributing
 
 ${data.guidelines}
 
