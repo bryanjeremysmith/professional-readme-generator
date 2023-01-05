@@ -84,6 +84,8 @@ function generateMarkdown(data) {
 
   const licenseSection = renderLicenseSection(data.license);
 
+  //If the licenseSection is empty, then that means there is no license, and we should not include License in our Table of Contents, otherwise,
+  //there is a license section, and we should include it in our table of contents.
   const licenseToC = (licenseSection == '') ? '' : '- [License](#license)\n';
 
   return `# ${data.title} ${renderedLicenseBadge}
@@ -106,7 +108,7 @@ ${data.installation}
 
 ## Usage
 
-${data.usage}
+<pre>${data.usage}</pre>
 
 ${licenseSection}## Contributing
 
